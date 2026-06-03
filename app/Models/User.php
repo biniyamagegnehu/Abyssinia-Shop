@@ -7,10 +7,12 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'status'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -27,6 +29,31 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'status' => \App\Enums\UserStatus::class,
         ];
+    }
+
+    /**
+     * Get the user's addresses.
+     */
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    /**
+     * Get the user's shopping cart.
+     */
+    public function cart(): HasOne
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    /**
+     * Get the user's orders.
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }
