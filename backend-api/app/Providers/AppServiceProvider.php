@@ -45,6 +45,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\Contracts\OrderItemRepositoryInterface::class,
             \App\Repositories\Eloquent\OrderItemRepository::class
         );
+
+        $this->app->bind(
+            \App\Repositories\Contracts\DashboardRepositoryInterface::class,
+            \App\Repositories\Eloquent\DashboardRepository::class
+        );
     }
 
     /**

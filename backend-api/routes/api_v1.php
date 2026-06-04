@@ -99,3 +99,14 @@ Route::prefix('admin/orders')->middleware(['auth:sanctum', 'permission:manage-or
     Route::get('/{order}', [AdminOrderController::class, 'show']);
     Route::patch('/{order}/status', [AdminOrderController::class, 'updateStatus']);
 });
+
+use App\Http\Controllers\Api\V1\Dashboard\DashboardController;
+
+// Admin Dashboard Routes
+Route::prefix('admin/dashboard')->middleware(['auth:sanctum', 'permission:view-dashboard'])->group(function () {
+    Route::get('/summary', [DashboardController::class, 'summary']);
+    Route::get('/orders', [DashboardController::class, 'orders']);
+    Route::get('/revenue', [DashboardController::class, 'revenue']);
+    Route::get('/recent-orders', [DashboardController::class, 'recentOrders']);
+    Route::get('/low-stock', [DashboardController::class, 'lowStock']);
+});
