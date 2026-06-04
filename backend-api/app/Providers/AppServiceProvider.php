@@ -35,6 +35,16 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\Contracts\CartItemRepositoryInterface::class,
             \App\Repositories\Eloquent\CartItemRepository::class
         );
+
+        $this->app->bind(
+            \App\Repositories\Contracts\OrderRepositoryInterface::class,
+            \App\Repositories\Eloquent\OrderRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Contracts\OrderItemRepositoryInterface::class,
+            \App\Repositories\Eloquent\OrderItemRepository::class
+        );
     }
 
     /**

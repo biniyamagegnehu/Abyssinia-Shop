@@ -76,3 +76,10 @@ Route::prefix('cart')->middleware('auth:sanctum')->group(function () {
     Route::put('/items/{cartItem}', [CartController::class, 'updateItem']);
     Route::delete('/items/{cartItem}', [CartController::class, 'removeItem']);
 });
+
+use App\Http\Controllers\Api\V1\Checkout\CheckoutController;
+
+Route::prefix('checkout')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [CheckoutController::class, 'index']);
+    Route::post('/place-order', [CheckoutController::class, 'placeOrder']);
+});
