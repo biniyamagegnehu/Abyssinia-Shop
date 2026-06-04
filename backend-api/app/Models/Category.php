@@ -8,10 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['name', 'slug', 'description', 'parent_id'])]
+#[Fillable(['name', 'slug', 'description', 'parent_id', 'status'])]
 class Category extends Model
 {
     use HasFactory;
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'status' => \App\Enums\CategoryStatus::class,
+        ];
+    }
 
     /**
      * Get the parent category.
