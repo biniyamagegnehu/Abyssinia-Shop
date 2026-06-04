@@ -66,3 +66,13 @@ Route::prefix('products')->group(function () {
     });
 });
 
+use App\Http\Controllers\Api\V1\Cart\CartController;
+
+Route::prefix('cart')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [CartController::class, 'show']);
+    Route::delete('/', [CartController::class, 'clearCart']);
+    
+    Route::post('/items', [CartController::class, 'addItem']);
+    Route::put('/items/{cartItem}', [CartController::class, 'updateItem']);
+    Route::delete('/items/{cartItem}', [CartController::class, 'removeItem']);
+});
