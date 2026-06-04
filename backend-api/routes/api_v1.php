@@ -46,15 +46,23 @@ Route::prefix('categories')->group(function () {
 });
 
 use App\Http\Controllers\Api\V1\Product\ProductController;
+use App\Http\Controllers\Api\V1\Product\ProductImageController;
 
 Route::prefix('products')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
     Route::get('/{product}', [ProductController::class, 'show']);
+    Route::get('/{product}/images', [ProductImageController::class, 'index']);
 
     Route::middleware(['auth:sanctum', 'permission:manage-products'])->group(function () {
         Route::post('/', [ProductController::class, 'store']);
         Route::put('/{product}', [ProductController::class, 'update']);
         Route::delete('/{product}', [ProductController::class, 'destroy']);
+    });
+
+    Route::middleware(['auth:sanctum', 'permission:manage-product-images'])->group(function () {
+        Route::post('/{product}/images', [ProductImageController::class, 'store']);
+        Route::delete('/{product}/images/{image}', [ProductImageController::class, 'destroy']);
+        Route::put('/{product}/images/{image}/primary', [ProductImageController::class, 'setPrimary']);
     });
 });
 

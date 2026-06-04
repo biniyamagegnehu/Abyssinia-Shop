@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['product_id', 'image_path', 'is_featured', 'sort_order'])]
+#[Fillable(['product_id', 'image_path', 'is_primary', 'sort_order'])]
 class ProductImage extends Model
 {
     use HasFactory;
@@ -20,7 +20,7 @@ class ProductImage extends Model
     protected function casts(): array
     {
         return [
-            'is_featured' => 'boolean',
+            'is_primary' => 'boolean',
             'sort_order' => 'integer',
         ];
     }
