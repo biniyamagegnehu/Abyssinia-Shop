@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['cart_id', 'product_id', 'quantity'])]
+#[Fillable(['cart_id', 'product_id', 'quantity', 'price'])]
 class CartItem extends Model
 {
     use HasFactory;
@@ -21,6 +21,7 @@ class CartItem extends Model
     {
         return [
             'quantity' => 'integer',
+            'price' => 'decimal:2',
         ];
     }
 
