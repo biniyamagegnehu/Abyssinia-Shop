@@ -83,3 +83,19 @@ Route::prefix('checkout')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [CheckoutController::class, 'index']);
     Route::post('/place-order', [CheckoutController::class, 'placeOrder']);
 });
+
+use App\Http\Controllers\Api\V1\Order\OrderController;
+use App\Http\Controllers\Api\V1\Order\AdminOrderController;
+
+// Customer Order Routes
+Route::prefix('orders')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [OrderController::class, 'index']);
+    Route::get('/{order}', [OrderController::class, 'show']);
+});
+
+// Admin Order Routes
+Route::prefix('admin/orders')->middleware(['auth:sanctum', 'permission:manage-orders'])->group(function () {
+    Route::get('/', [AdminOrderController::class, 'index']);
+    Route::get('/{order}', [AdminOrderController::class, 'show']);
+    Route::patch('/{order}/status', [AdminOrderController::class, 'updateStatus']);
+});
