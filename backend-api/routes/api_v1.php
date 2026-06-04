@@ -44,3 +44,17 @@ Route::prefix('categories')->group(function () {
         Route::delete('/{category}', [CategoryController::class, 'destroy']);
     });
 });
+
+use App\Http\Controllers\Api\V1\Product\ProductController;
+
+Route::prefix('products')->group(function () {
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/{product}', [ProductController::class, 'show']);
+
+    Route::middleware(['auth:sanctum', 'permission:manage-products'])->group(function () {
+        Route::post('/', [ProductController::class, 'store']);
+        Route::put('/{product}', [ProductController::class, 'update']);
+        Route::delete('/{product}', [ProductController::class, 'destroy']);
+    });
+});
+
